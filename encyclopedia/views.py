@@ -87,16 +87,12 @@ def save(request):
         title=request.POST['title']
         content=request.POST['info']
         util.save_entry(title, content)
-        info=converter(title)
         return HttpResponseRedirect(reverse('entry', kwargs={'title': title}))
 
 def rand(request):
     Entri=util.list_entries()
-    random_= random.choice(Entri)
-    info=converter(random_)
-    return render(request, "encyclopedia/entry.html",{
-        "info":info
-        })
+    title= random.choice(Entri)
+    return HttpResponseRedirect(reverse('entry', kwargs={'title': title}))
     
         
         
