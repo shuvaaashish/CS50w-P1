@@ -47,7 +47,7 @@ def search(request):
                 recommendation.append(entry)
         
         if not recommendation:
-            return render(request,"Encyclopedia/err.html",{
+            return render(request,"encyclopedia/err.html",{
                 "err":"This page doesn't exist"})
         
         return render(request, "encyclopedia/search.html", {
@@ -67,11 +67,7 @@ def new(request):
             })
         else:
             util.save_entry(title, content)
-            info=converter(title)
-            return render(request,"encyclopedia/entry.html",{
-                "title":title,
-                "info":info
-            })
+            return HttpResponseRedirect(reverse('entry', kwargs={'title': title}))
             
 def edit(request):
     if request.method=='POST':
